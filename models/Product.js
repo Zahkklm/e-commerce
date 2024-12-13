@@ -1,0 +1,37 @@
+const mongoose = require('mongoose');
+
+const productSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  description: { type: String },
+  price: { type: Number, required: true },
+  quantity: { type: Number, default: 0 },
+  category: { type: String, required: true },
+  image: { type: String },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+  deletedAt: { type: Date },
+  isDeleted: { type: Boolean, default: false },
+  isFeatured: { type: Boolean, default: false },
+  isBestSeller: { type: Boolean, default: false },
+  isPublished: { type: Boolean, default: false },
+  isFreeShipping: { type: Boolean, default: false },
+  isTaxable: { type: Boolean, default: false },
+  isDigital: { type: Boolean, default: false },
+  isSoldOut: { type: Boolean, default: false },
+  isOnSale: { type: Boolean, default: false },
+  salePrice: { type: Number },
+  tags: { type: [String] },
+  attributes: { type: [String] },
+  variations: { type: [String] },
+  relatedProducts: { type: [String] },
+  reviews: { type: [String] },
+  ratings: { type: [String] },
+  meta: { type: [String] },
+  slug: { type: String, required: true },
+  sku: { type: String, required: true },
+  brand: { type: String },
+  vendor: { type: String },
+  vendorId: { type: String },
+});
+
+module.exports = mongoose.model('Product', productSchema);
