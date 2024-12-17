@@ -1,4 +1,8 @@
+// This file contains the functions for creating and getting all products.
+
 const Product = require('../models/Product');
+
+// createProduct function creates a new product and saves it to the database.
 
 const createProduct = async (req, res) => {
   try {
@@ -9,6 +13,8 @@ const createProduct = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+// getAllProducts function gets all products from the database.
 
 const getAllProducts = async (req, res) => {
   try {

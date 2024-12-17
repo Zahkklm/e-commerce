@@ -1,3 +1,5 @@
+// This file contains the functions for user registration, login, and getting all users.
+
 const User = require('../models/User');
 
 // Register a new user
