@@ -1,3 +1,5 @@
+// This middleware is used to authenticate users using JWT tokens. Returns HTTP 401 if token is missing or invalid.
+
 const jwt = require('jsonwebtoken');
 
 const authMiddleware = (req, res, next) => {
