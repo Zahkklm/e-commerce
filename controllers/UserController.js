@@ -1,6 +1,7 @@
 // This file contains the functions for user registration, login, and getting all users.
 
 const User = require('../models/User');
+const bcrypt = require('bcrypt');
 
 // Register a new user
 const registerUser = async (req, res) => {
@@ -43,6 +44,7 @@ const loginUser = async (req, res) => {
   }
 };
 
+// fetch All Users
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find();

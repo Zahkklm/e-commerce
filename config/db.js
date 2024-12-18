@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Replace with your MongoDB URI
-const uri = process.env.MONGO_URI || 'mongodb://localhost:27017/ecommercedb';
+const uri = process.env.MONGO_URI || 'mongodb://localhost:27017/e-commerce-db';
 
 const connectDB = async () => {
   try {
