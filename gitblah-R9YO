@@ -1,0 +1,29 @@
+2024-12-19T09:10:08+03:00 | fca97f1fb0fe233d94e8ae8be512ed8791dda379 | Implement user activation, deactivation and get All Users functionalities for admin
+2024-12-19T01:55:35+03:00 | 4b84a2ac564e95318d9438d7a7c69691959ffabb | Add GET users, PATCH update user role and PATCH deactivate use for admin userr
+2024-12-18T23:09:54+03:00 | 6fd28b3561a86d780e944e5d7d30892e46b9fb1d | Add updateProduct, deleteProduct, getProductById to productController, add sendEmail utility function using nodemailer
+2024-12-18T20:02:16+03:00 | 764684ac4b99ea12986d32c61b4a0f1adbc2a7cc | Add requestPasswordReset, updateUserRole, deactivateUser functionalities
+2024-12-18T14:23:55+03:00 | bd203925507f49377b1ea570d584a9f7df184584 | Import jwt library to UserController
+2024-12-18T14:11:33+03:00 | 231b8c505a6ce5b3173643e034f2db6931d6dc05 | Temporarily disable middleware, synchronize database names in docker-compose.yml and db.js
+2024-12-18T11:54:58+03:00 | 68331e38997a6ef68722963720933981c2cb5dea | Remove deprecated options based on MongoDB warnings
+2024-12-18T10:21:22+03:00 | e8aa4f5c26ea43e20d52386672f104f5c07587c5 | Implement pagination and price range filtering to getAllProducts
+2024-12-17T14:38:21+03:00 | b82352149602cf3c7b149ccf23b4f713fc99a8eb | Add explanations to controllers and specific functions
+2024-12-17T14:25:35+03:00 | af1fde8b4cb8a678110b1c9e4de019ad75b94d97 | Restrict createProduct to non-admin users
+2024-12-17T13:08:14+03:00 | 7a43f68034a1d88fdb3340c64215655bfe86db08 | Explain what middleware files do
+2024-12-16T19:22:42+03:00 | d5d9e5cb19a2431a960eba9e2b9b589631e371cb | Create adminMiddleware
+2024-12-16T15:47:59+03:00 | 094fa3892ee83410cd979b1dc454c65762fcd663 | Improve README.md styling
+2024-12-16T15:11:03+03:00 | 1f53a2ced0f29528c3d9cf6c90ba287c6f88526d | Create authMiddleware for JWT token layer
+2024-12-16T13:58:22+03:00 | b80a8e8df994b74b9b22a8895bedf9a6053bf8ad | Add registerUser and loginUser controllers
+2024-12-15T15:53:10+03:00 | 31be615bc01e030250b9536e5c2fe59955719f7d | Modify package.json to include nodemon, create Dockerfile and docker-compose for mongodb
+2024-12-15T12:47:48+03:00 | c0ec2d4bdf3dce9a733ff7ba6f6b0e600fe903a5 |  Create nodemon debugger configurations for vscode
+2024-12-15T11:02:37+03:00 | b4a579ec67a2075a6c153b40b75f76f5fd3a52c9 | Install bcrypt package for password hashing and jsonwebtoken for authorization
+2024-12-15T09:54:14+03:00 | 663d43b08c10f2654f4ef834161429cbdec8c8ad | Add endpoints to README.md
+2024-12-14T13:38:46+03:00 | 0c764482df92f670a49dd12c919330cf4ba6e0c0 | Add userController
+2024-12-14T14:03:59+03:00 | dc27b65bf686a6886a5b49b964cfc4e4a8a0bfb3 | Create skeleton routes for User and Product models
+2024-12-14T13:16:17+03:00 | d42c0e0da4251182366b5b67ac4042590d166f1e | Create Product and User controllers
+2024-12-13T22:21:35+03:00 | e747e736b001d1440b7adc2fc2d49055da8b20e8 | Create User and Product models, TODO: Add Order model
+2024-12-13T17:14:40+03:00 | d116abd67582aa2950f8d92ed01cd283038709fb | Create database connection file, remove package-lock.json from .gitignore
+2024-12-13T15:02:33+03:00 | ef2dad85908e3f141d1d5e1e42c8168133ca0543 | Add express and body-parser packages to package.json, add package-lock.json to .gitignore
+2024-12-13T14:11:19+03:00 | 1b99da86ae80d8521060247c27d2d860650ced02 | Create entry point (app.js), add npm packages nodemon and dotenv, add node_modules to .gitignore
+2024-12-12T11:47:23+03:00 | b6b2592e371402b4ba2803a86641c900be80ffe4 | Create .gitignore
+2024-12-12T10:32:41+03:00 | a85dcb7345e1deb0ea1e2909a4df6ce8921a3a55 | Initialized npm
+2024-12-12T12:38:02+01:00 | a7702003a0cca51b433e59b04ac673accc69b109 | Define backend project structure
