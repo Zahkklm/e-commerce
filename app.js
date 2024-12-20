@@ -8,6 +8,9 @@ const productRoutes = require('./routes/productRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const invoiceRoutes = require('./routes/invoiceRoutes');
 // const errorHandler = require('./middleware/errorMiddleware'); // Assuming an error handler middleware exists
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./config/swagger-output.json'); // Generated file
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -28,19 +31,9 @@ app.use('/api/invoices', invoiceRoutes); // Invoice routes
 // TODO: Add error handler middleware 
 // app.use(errorHandler); // Custom error handler to capture and format errors
 
-const { swaggerUi, swaggerSpec } = require('./config/swagger');
-const authorizeRoles = require('./middleware/authorizeRoles');
 
 // Swagger documentation route
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
-const sitemap = require('express-sitemap-html')
-
-// Add a route to the sitemap
-app.get('/sitemap', sitemap(app))
-
-// Alternatively auto generate and install a swagger UI for given express app:
-sitemap.swagger('Your app name', app) // available at /api-docs
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // Server listener
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
