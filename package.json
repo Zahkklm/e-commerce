@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "doc": "jsdoc -c jsdoc.json"
   },
   "author": "Özgür Peynirci",
   "license": "ISC",
@@ -17,9 +18,14 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.1",
-    "nodemailer": "^6.9.16"
+    "nodemailer": "^6.9.16",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "express-sitemap-html": "^1.2.6",
+    "jsdoc": "^4.0.4",
+    "nodemon": "^3.1.9",
+    "npm": "^11.0.0"
   }
 }
