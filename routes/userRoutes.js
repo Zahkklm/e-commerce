@@ -6,7 +6,7 @@ const {
   requestPasswordReset,
   updateUserRole,
   deactivateUser,
-} = require('../controllers/UserController');
+} = require('../controllers/userController');
 
 const router = express.Router();
 
@@ -17,10 +17,11 @@ router.post('/request-password-reset', requestPasswordReset); // Request passwor
 
 // Protected routes (require authentication & authorization middleware)
 // These middlewares can check the JWT and roles as required
-const { authenticateUser, authorizeRoles } = require('../middleware/authMiddleware');
+const authMiddleware = require('../middleware/authMiddleware');
+const authorizeRoles = require('../middleware/authorizeRoles');
 
-router.get('/', authenticateUser, authorizeRoles('admin'), getAllUsers); // Get all users (Admin only)
-router.patch('/:id/role', authenticateUser, authorizeRoles('admin'), updateUserRole); // Update user role (Admin only)
-router.patch('/:id/deactivate', authenticateUser, authorizeRoles('admin'), deactivateUser); // Deactivate user (Admin only)
+router.get('/', authMiddleware, authorizeRoles('admin'), getAllUsers); // Get all users (Admin only)
+router.patch('/:id/role', authMiddleware, authorizeRoles('admin'), updateUserRole); // Update user role (Admin only)
+router.patch('/:id/deactivate', authMiddleware, authorizeRoles('admin'), deactivateUser); // Deactivate user (Admin only)
 
 module.exports = router;
