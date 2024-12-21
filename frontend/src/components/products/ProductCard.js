@@ -1,27 +1,19 @@
-import { BrowserRouter as Router } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { CartProvider } from './context/CartContext';
-import AppRoutes from './Router';
-import Header from './components/common/Header';
-import Footer from './components/common/Footer';
-import './styles/index.css';
+import { useCart } from '../../hooks/useCart';
 
-function App() {
+const ProductCard = ({ product }) => {
+  const { addToCart } = useCart();
+
   return (
-    <Router>
-      <AuthProvider>
-        <CartProvider>
-          <div className="app">
-            <Header />
-            <main className="container">
-              <AppRoutes />
-            </main>
-            <Footer />
-          </div>
-        </CartProvider>
-      </AuthProvider>
-    </Router>
+    <div className="product-card">
+      <img src={product.image} alt={product.name} />
+      <div className="product-info">
+        <h3>{product.name}</h3>
+        <p>{product.description}</p>
+        <p className="price">${product.price}</p>
+        <button onClick={() => addToCart(product)}>Add to Cart</button>
+      </div>
+    </div>
   );
-}
+};
 
-export default App;
+export default ProductCard;
