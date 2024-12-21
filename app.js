@@ -10,7 +10,8 @@ const invoiceRoutes = require('./routes/invoiceRoutes');
 // const errorHandler = require('./middleware/errorMiddleware'); // Assuming an error handler middleware exists
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./config/swagger-output.json'); // Generated file
-
+const shipmentRoutes = require('./routes/shipmentRoutes');
+const returnRoutes = require('./routes/returnRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -27,6 +28,8 @@ app.use('/api/users', userRoutes); // User routes
 app.use('/api/products', productRoutes); // Product routes
 app.use('/api/orders', orderRoutes); // Order routes
 app.use('/api/invoices', invoiceRoutes); // Invoice routes
+app.use('/api/shipments', shipmentRoutes); // Shipment routes
+app.use('/api/returns', returnRoutes); // Return routes
 
 // TODO: Add error handler middleware 
 // app.use(errorHandler); // Custom error handler to capture and format errors

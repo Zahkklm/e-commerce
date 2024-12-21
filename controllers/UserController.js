@@ -35,12 +35,14 @@ const registerUser = async (req, res) => {
     await user.save();
 
     // Send verification email
+    /*
     const verificationLink = `${process.env.FRONTEND_URL}/verify-email/${verificationToken}`;
     await sendEmail({
       to: email,
       subject: 'Verify Your Email',
       text: `Click the link to verify your email: ${verificationLink}`,
     });
+    */
 
     res.status(201).json({ message: 'User registered successfully. Please verify your email.' });
   } catch (error) {
