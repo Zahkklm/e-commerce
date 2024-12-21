@@ -17,9 +17,8 @@ Core Features
 
 ```
 react-ecommerce/
-├── public/
-│   ├── index.html
-│   └── favicon.ico
+├── package.json
+├── README.md
 └── src/
     ├── components/
     │   ├── auth/
@@ -42,8 +41,7 @@ react-ecommerce/
     │   │   ├── Header.js
     │   │   ├── Footer.js
     │   │   ├── Button.js
-    │   │   ├── Input.js
-    │   │   └── Loading.js
+    │   │   └── ProtectedRoute.js
     │   └── notifications/
     │       └── NotificationToast.js
     ├── context/
@@ -52,22 +50,14 @@ react-ecommerce/
     ├── services/
     │   ├── api.js
     │   ├── authService.js
-    │   ├── productService.js
-    │   └── paymentService.js
+    │   └── productService.js
     ├── hooks/
     │   ├── useAuth.js
-    │   ├── useCart.js
-    │   └── useNotification.js
+    │   └── useCart.js
     ├── utils/
-    │   ├── constants.js
-    │   ├── helpers.js
-    │   └── validation.js
+    │   └── helpers.js
     ├── styles/
-    │   ├── index.css
-    │   └── components/
-    │       ├── auth.css
-    │       ├── products.css
-    │       └── cart.css
+    │   └── index.css
     ├── App.js
     ├── index.js
     └── Router.js
