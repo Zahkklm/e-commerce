@@ -1,7 +1,14 @@
 import { useCart } from '../../hooks/useCart';
+import { useNotification } from '../../hooks/useNotification';
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
+  const { addNotification } = useNotification();
+
+  const handleAddToCart = () => {
+    addToCart(product);
+    addNotification(`${product.name} added to cart`, 'success');
+  };
 
   return (
     <div className="product-card">
@@ -10,7 +17,12 @@ const ProductCard = ({ product }) => {
         <h3>{product.name}</h3>
         <p>{product.description}</p>
         <p className="price">${product.price}</p>
-        <button onClick={() => addToCart(product)}>Add to Cart</button>
+        <button 
+          onClick={handleAddToCart}
+          className="button primary"
+        >
+          Add to Cart
+        </button>
       </div>
     </div>
   );
