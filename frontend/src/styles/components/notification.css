@@ -1,0 +1,28 @@
+.notification-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    background: white;
+    box-shadow: var(--shadow);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .notification-toast.info {
+    border-left: 4px solid var(--primary-color);
+  }
+  
+  .notification-toast.error {
+    border-left: 4px solid var(--danger-color);
+  }
+  
+  .notification-toast button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
