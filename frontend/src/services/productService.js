@@ -2,7 +2,9 @@ import api from './api';
 
 const productService = {
   getProducts: async (filters = {}) => {
-    const { data } = await api.get('/products', { params: filters });
+    const { data } = await api.get('/products', { 
+      params: filters 
+    });
     return data;
   },
 
