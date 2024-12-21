@@ -15,6 +15,9 @@ const returnRoutes = require('./routes/returnRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const path = require('path');
+
+
 
 // MongoDB connection
 connectDB();
@@ -23,13 +26,21 @@ connectDB();
 app.use(bodyParser.json());
 
 
-// API Routes
-app.use('/api/users', userRoutes); // User routes
-app.use('/api/products', productRoutes); // Product routes
-app.use('/api/orders', orderRoutes); // Order routes
-app.use('/api/invoices', invoiceRoutes); // Invoice routes
-app.use('/api/shipments', shipmentRoutes); // Shipment routes
-app.use('/api/returns', returnRoutes); // Return routes
+// Serve static files from React build
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+// Handle React routing, return all requests to React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+});
+
+// API Routes should be before the catch-all route
+app.use('/api/users', userRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/invoices', invoiceRoutes);
+app.use('/api/shipments', shipmentRoutes);
+app.use('/api/returns', returnRoutes);
 
 // TODO: Add error handler middleware 
 // app.use(errorHandler); // Custom error handler to capture and format errors
