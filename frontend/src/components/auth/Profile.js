@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
+import { useNotification } from '../../hooks/useNotification';
 
 const Profile = () => {
   const { user, updateProfile } = useAuth();
+  const { addNotification } = useNotification();
   const [formData, setFormData] = useState({
-    name: user?.name || '',
-    email: user?.email || '',
+    name: '',
+    email: ''
   });
-  const [message, setMessage] = useState('');
 
   useEffect(() => {
     if (user) {
@@ -22,16 +23,15 @@ const Profile = () => {
     e.preventDefault();
     try {
       await updateProfile(formData);
-      setMessage('Profile updated successfully');
+      addNotification('Profile updated successfully', 'success');
     } catch (error) {
-      setMessage('Failed to update profile');
+      addNotification('Failed to update profile', 'error');
     }
   };
 
   return (
     <div className="profile-container">
       <h2>My Profile</h2>
-      {message && <div className="message">{message}</div>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Name</label>
@@ -49,7 +49,9 @@ const Profile = () => {
             disabled
           />
         </div>
-        <button type="submit">Update Profile</button>
+        <button type="submit" className="button primary">
+          Update Profile
+        </button>
       </form>
     </div>
   );

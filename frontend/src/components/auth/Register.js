@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import { useNotification } from '../../hooks/useNotification';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -9,21 +10,22 @@ const Register = () => {
     password: '',
     confirmPassword: ''
   });
-  const [error, setError] = useState('');
   const { register } = useAuth();
+  const { addNotification } = useNotification();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      addNotification('Passwords do not match', 'error');
       return;
     }
     try {
       await register(formData);
+      addNotification('Registration successful! Please login.', 'success');
       navigate('/login');
-    } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed');
+    } catch (error) {
+      addNotification(error.response?.data?.message || 'Registration failed', 'error');
     }
   };
 
@@ -31,7 +33,6 @@ const Register = () => {
     <div className="auth-container">
       <form onSubmit={handleSubmit}>
         <h2>Register</h2>
-        {error && <div className="error-message">{error}</div>}
         <div className="form-group">
           <input
             type="text"
@@ -68,7 +69,7 @@ const Register = () => {
             required
           />
         </div>
-        <button type="submit">Register</button>
+        <button type="submit" className="button primary">Register</button>
       </form>
     </div>
   );
