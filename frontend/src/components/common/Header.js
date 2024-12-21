@@ -1,27 +1,33 @@
-import { BrowserRouter as Router } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { CartProvider } from './context/CartContext';
-import AppRoutes from './Router';
-import Header from './components/common/Header';
-import Footer from './components/common/Footer';
-import './styles/index.css';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
+import { useCart } from '../../hooks/useCart';
 
-function App() {
+const Header = () => {
+  const { user, logout } = useAuth();
+  const { items } = useCart();
+
   return (
-    <Router>
-      <AuthProvider>
-        <CartProvider>
-          <div className="app">
-            <Header />
-            <main className="container">
-              <AppRoutes />
-            </main>
-            <Footer />
-          </div>
-        </CartProvider>
-      </AuthProvider>
-    </Router>
+    <header className="header">
+      <div className="logo">
+        <Link to="/">E-Commerce</Link>
+      </div>
+      <nav>
+        <Link to="/products">Products</Link>
+        {user ? (
+          <>
+            <Link to="/cart">Cart ({items.length})</Link>
+            <Link to="/profile">Profile</Link>
+            <button onClick={logout}>Logout</button>
+          </>
+        ) : (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
+          </>
+        )}
+      </nav>
+    </header>
   );
-}
+};
 
-export default App;
+export default Header;
