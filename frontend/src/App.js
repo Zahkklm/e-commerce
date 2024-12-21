@@ -4,7 +4,8 @@ import { CartProvider } from './context/CartContext';
 import AppRoutes from './Router';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
-import './App.css';
+import NotificationToast from './components/notifications/NotificationToast';
+import './styles/index.css';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
               <AppRoutes />
             </main>
             <Footer />
+            <NotificationToast />
           </div>
         </CartProvider>
       </AuthProvider>

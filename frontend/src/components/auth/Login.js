@@ -1,38 +1,53 @@
 import { useState } from 'react';
-import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 
 const Login = () => {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+  const [error, setError] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     try {
-      await login(credentials);
+      await login(formData);
       navigate('/');
-    } catch (error) {
-      console.error('Login failed:', error);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Login failed');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        placeholder="Email"
-        value={credentials.email}
-        onChange={(e) => setCredentials({...credentials, email: e.target.value})}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={credentials.password}
-        onChange={(e) => setCredentials({...credentials, password: e.target.value})}
-      />
-      <button type="submit">Login</button>
-    </form>
+    <div className="auth-container">
+      <form onSubmit={handleSubmit}>
+        <h2>Login</h2>
+        {error && <div className="error-message">{error}</div>}
+        <div className="form-group">
+          <input
+            type="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={(e) => setFormData({...formData, email: e.target.value})}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={(e) => setFormData({...formData, password: e.target.value})}
+            required
+          />
+        </div>
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
 };
 
