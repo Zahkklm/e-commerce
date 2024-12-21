@@ -1,24 +1,24 @@
 .payment-form {
-    max-width: 500px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: white;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-  }
-  
-  .payment-form input {
-    width: 100%;
-    padding: 0.8rem;
-    margin-bottom: 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-  }
-  
-  .payment-success {
-    text-align: center;
-    padding: 3rem;
-    background: white;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-  }
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.payment-form input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+}
+
+.payment-success {
+  text-align: center;
+  padding: 3rem;
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}

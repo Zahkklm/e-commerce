@@ -8,8 +8,9 @@ import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import NotificationToast from './components/notifications/NotificationToast';
 import websocketService from './services/webSocketService';
+import ErrorBoundary from './components/common/ErrorBoundary';
 
-//import './styles/index.css';
+import './styles/index.css';
 
 function App() {
   useEffect(() => {
@@ -24,7 +25,9 @@ function App() {
             <div className="app">
               <Header />
               <main className="container">
-                <AppRoutes />
+                <ErrorBoundary>
+                  <AppRoutes />
+                </ErrorBoundary>
               </main>
               <Footer />
               <NotificationToast />
