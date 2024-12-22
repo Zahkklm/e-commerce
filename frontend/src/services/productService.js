@@ -5,7 +5,7 @@ const productService = {
     const { data } = await api.get('/products', { 
       params: filters 
     });
-    return data;
+    return data; // Ensure it returns the full response object
   },
 
   getProductById: async (id) => {

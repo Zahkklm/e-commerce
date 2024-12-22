@@ -10,8 +10,11 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const initAuth = async () => {
       try {
-        const currentUser = await authService.getCurrentUser();
-        setUser(currentUser);
+        const token = localStorage.getItem('token');
+        if (token) {
+          const currentUser = await authService.getCurrentUser();
+          setUser(currentUser);
+        }
       } catch (error) {
         console.error('Auth initialization failed:', error);
       } finally {
