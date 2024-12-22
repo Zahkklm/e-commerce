@@ -12,15 +12,11 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="product-card">
-      <img src={product.image} alt={product.name} />
+      <img src={product.image} alt={product.name} className="product-image" />
       <div className="product-info">
-        <h3>{product.name}</h3>
-        <p>{product.description}</p>
-        <p className="price">${product.price}</p>
-        <button 
-          onClick={handleAddToCart}
-          className="button primary"
-        >
+        <h3 className="product-title">{product.name}</h3>
+        <p className="product-price">${product.price}</p>
+        <button onClick={handleAddToCart} className="button button-primary">
           Add to Cart
         </button>
       </div>

@@ -10,16 +10,23 @@ const ProductList = () => {
   const [filters, setFilters] = useState({
     category: '',
     minPrice: 0,
-    maxPrice: 1000
+    maxPrice: 1000,
+    search: ''
   });
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const data = await productService.getProducts(filters);
-        setProducts(data);
+        if (Array.isArray(data.products)) {
+          setProducts(data.products);
+        } else {
+          console.error('API response is not an array:', data);
+          setProducts([]);
+        }
       } catch (error) {
         console.error('Failed to fetch products:', error);
+        setProducts([]);
       } finally {
         setLoading(false);
       }
@@ -38,7 +45,7 @@ const ProductList = () => {
       ) : (
         <div className="products-grid">
           {products.map(product => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product._id} product={product} />
           ))}
         </div>
       )}
