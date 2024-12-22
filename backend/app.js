@@ -29,10 +29,7 @@ app.use(bodyParser.json());
 // Serve static files from React build
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
-// Handle React routing, return all requests to React app
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
-});
+
 
 // API Routes should be before the catch-all route
 app.use('/api/users', userRoutes);
@@ -41,6 +38,11 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/invoices', invoiceRoutes);
 app.use('/api/shipments', shipmentRoutes);
 app.use('/api/returns', returnRoutes);
+
+// Handle React routing, return all requests to React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+});
 
 // TODO: Add error handler middleware 
 // app.use(errorHandler); // Custom error handler to capture and format errors

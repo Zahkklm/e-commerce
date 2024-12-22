@@ -1,5 +1,3 @@
-// This file contains the functions for managing products.
-
 const Product = require('../models/Product');
 
 // Create a new product
@@ -36,6 +34,20 @@ const getAllProducts = async (req, res) => {
   }
 };
 
+// Get a single product by ID
+const getProductById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const product = await Product.findById(id);
+    if (!product) return res.status(404).json({ error: 'Product not found' });
+
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // Update a product by ID
 const updateProduct = async (req, res) => {
   try {
@@ -59,20 +71,6 @@ const deleteProduct = async (req, res) => {
     if (!deletedProduct) return res.status(404).json({ error: 'Product not found' });
 
     res.status(200).json({ message: 'Product deleted successfully', deletedProduct });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
-// Get a single product by ID
-const getProductById = async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const product = await Product.findById(id);
-    if (!product) return res.status(404).json({ error: 'Product not found' });
-
-    res.status(200).json(product);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
