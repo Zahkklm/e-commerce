@@ -17,19 +17,14 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const path = require('path');
 
-
-
 // MongoDB connection
 connectDB();
 
 // Middleware
 app.use(bodyParser.json());
 
-
 // Serve static files from React build
 app.use(express.static(path.join(__dirname, '../frontend/build')));
-
-
 
 // API Routes should be before the catch-all route
 app.use('/api/users', userRoutes);
@@ -46,7 +41,6 @@ app.get('*', (req, res) => {
 
 // TODO: Add error handler middleware 
 // app.use(errorHandler); // Custom error handler to capture and format errors
-
 
 // Swagger documentation route
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
