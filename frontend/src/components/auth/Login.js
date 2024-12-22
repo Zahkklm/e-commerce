@@ -3,10 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -16,9 +13,18 @@ const Login = () => {
     setError('');
     try {
       await login(formData);
-      navigate('/');
+      window.location.reload(); // Force page refresh after successful login
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+      const status = err.response?.status;
+      if (status === 400) {
+        setError('Invalid email or password');
+      } else if (status === 403) {
+        setError('Please verify your email before logging in');
+      } else if (status === 500) {
+        setError('Internal server error. Please try again later');
+      } else {
+        setError('Login failed. Please try again');
+      }
     }
   };
 
@@ -32,7 +38,7 @@ const Login = () => {
             type="email"
             placeholder="Email"
             value={formData.email}
-            onChange={(e) => setFormData({...formData, email: e.target.value})}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             required
           />
         </div>
@@ -41,11 +47,11 @@ const Login = () => {
             type="password"
             placeholder="Password"
             value={formData.password}
-            onChange={(e) => setFormData({...formData, password: e.target.value})}
+            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" className="button button-primary">Login</button>
       </form>
     </div>
   );
