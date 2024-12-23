@@ -64,7 +64,7 @@ const Allproducts = ({ addToCart }) => {
                   alt={product.name}
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = '/placeholder-image.jpg';
+                    e.target.src = product.image || './assets/discount/discount-3.png';
                   }}
                 />
               </div>
