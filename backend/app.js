@@ -6,7 +6,6 @@ const authMiddleware  = require('./middleware/authMiddleware');
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
 const orderRoutes = require('./routes/orderRoutes');
-const invoiceRoutes = require('./routes/invoiceRoutes');
 // const errorHandler = require('./middleware/errorMiddleware'); // Assuming an error handler middleware exists
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./config/swagger-output.json'); // Generated file

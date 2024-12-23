@@ -2,6 +2,14 @@
 
 Full-stack microservices e-commerce application with React frontend and Node.js backend services.
 
+## Postman Collection File
+
+[Postman Collection File](backend/config/swagger-output.json)
+
+
+## Screenshot
+![screenshot.png](screenshot.png)
+
 ## Architecture
 
 ```
@@ -11,6 +19,31 @@ Full-stack microservices e-commerce application with React frontend and Node.js 
     B --> E[Invoice Service]
     D --> F[Kafka]
     F --> E
+```
+
+## **Middleware**
+
+### **Protected Routes**
+
+Some routes require authentication or specific roles. Use the following middleware to secure your routes:
+
+- **`authenticateUser`**: Ensures the user is logged in.
+- **`authorizeRoles('admin')`**: Restricts access to admin users.
+
+---
+
+## **Usage**
+
+
+Set up environment variables in a .env file like this:
+```
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/e-commerce-db
+JWT_SECRET=jwtsecretkeyhere201144
+EMAIL_SERVICE=gmail
+EMAIL_USERNAME=your_email@gmail.com
+EMAIL_PASSWORD=your_email_password_or_app_password
+EMAIL_FROM=your_email@gmail.com
 ```
 
 
