@@ -76,10 +76,97 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+const getProductsByCategory = async (req, res) => {
+  try {
+    const { category } = req.params;
+    const products = await Product.find({ category });
+    res.status(200).json({ products });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getMobilePhones = async (req, res) => {
+  try {
+    const products = await Product.find({ category: 'mobile-phones' });
+    res.status(200).json({ products });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const likeProduct = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const userId = req.user.id; // Assumes auth middleware sets req.user
+
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    if (product.likes.includes(userId)) {
+      return res.status(400).json({ error: 'Product already liked' });
+    }
+
+    product.likes.push(userId);
+    await product.save();
+
+    res.status(200).json({ 
+      message: 'Product liked successfully', 
+      likes: product.likes.length 
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const unlikeProduct = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const userId = req.user.id;
+
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    product.likes = product.likes.filter(id => !id.equals(userId));
+    await product.save();
+
+    res.status(200).json({ 
+      message: 'Product unliked successfully',
+      likes: product.likes.length 
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getLikes = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const product = await Product.findById(productId);
+    
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    res.status(200).json({ count: product.likes.length });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   createProduct,
   getAllProducts,
   updateProduct,
   deleteProduct,
   getProductById,
+  getProductsByCategory,
+  getMobilePhones,
+  likeProduct,
+  unlikeProduct,
+  getLikes
 };

@@ -12,7 +12,7 @@ const createReturn = async (req, res) => {
 
     const returnItem = new Return({
       order,
-      user: req.user._id,
+      user: req.user.id,
       returnReason,
       status: 'Pending',
     });
@@ -27,7 +27,7 @@ const createReturn = async (req, res) => {
 // Get all returns for an admin or user
 const getReturns = async (req, res) => {
   try {
-    const query = req.user.role === 'admin' ? {} : { user: req.user._id };
+    const query = req.user.role === 'admin' ? {} : { user: req.user.id };
     const returns = await Return.find(query).populate('order').populate('user', 'name email');
 
     res.status(200).json({ returns });

@@ -2,6 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const sendEmail = require('../utils/sendEmail');
+const mongoose = require('mongoose');
 
 // Helper function to generate JWT tokens
 const generateToken = (payload, secret, expiresIn) => {
@@ -61,9 +62,9 @@ const loginUser = async (req, res) => {
     }
 
     // Check if the email is verified
-    if (!user.verified) {
-      return res.status(403).json({ error: 'Please verify your email before logging in' });
-    }
+    // if (!user.verified) {
+    //   return res.status(403).json({ error: 'Please verify your email before logging in' });
+    // }
 
     // Compare the password
     const isMatch = await bcrypt.compare(password, user.password);
@@ -73,7 +74,7 @@ const loginUser = async (req, res) => {
 
     // Generate JWT token
     const token = generateToken(
-      { id: user._id, role: user.role },
+      { id: user.id.toString(), role: user.role },
       process.env.JWT_SECRET,
       '1d' // Token expires in 1 day
     );
@@ -83,6 +84,64 @@ const loginUser = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+const getProfile = async (req, res) => {
+  try {
+    console.log('User ID from token:', req.user.id);
+    console.log('User object from middleware:', req.user);
+
+    // Verify ID is valid MongoDB ObjectId
+    if (!mongoose.Types.ObjectId.isValid(req.user.id)) {
+      console.log("user ID:", req.user.id);
+      return res.status(400).json({ error: 'Invalid user ID format' });
+    }
+
+    const user = await User.findById(req.user.id)
+      .select('-password')
+      .lean();
+
+    console.log('Found user:', user);
+
+    if (!user) {
+      return res.status(404).json({ 
+        error: 'User not found',
+        requestedId: req.user.id
+      });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error('Profile fetch error:', error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const updateProfile = async (req, res) => {
+    try {
+      const { name, email, phone, address } = req.body;
+      
+      // Find user and update
+      const user = await User.findById(req.user.id);
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Update fields if provided
+      if (name) user.name = name;
+      if (email) user.email = email;
+      if (phone) user.phone = phone;
+      if (address) user.address = address;
+
+      await user.save();
+      
+      // Return updated user without password
+      const updatedUser = await User.findById(user.id).select('-password');
+      res.json(updatedUser);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  };
+
 
 // Verify user email
 const verifyEmail = async (req, res) => {
@@ -312,4 +371,6 @@ module.exports = {
   addAddress,
   deleteAddress,
   getUserDetails,
+  getProfile,
+  updateProfile
 };

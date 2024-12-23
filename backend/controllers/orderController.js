@@ -26,7 +26,7 @@ const createOrder = async (req, res) => {
 
     // Create the order
     const order = new Order({
-      user: req.user._id,
+      user: req.user.id,
       items: itemDetails,
       status: 'Pending',
       paymentMethod,
@@ -53,7 +53,7 @@ const createOrder = async (req, res) => {
 // Get all orders for an admin or user
 const getOrders = async (req, res) => {
   try {
-    const query = req.user.role === 'admin' ? {} : { user: req.user._id };
+    const query = req.user.role === 'admin' ? {} : { user: req.user.id };
     const orders = await Order.find(query)
       .populate('user', 'name email')
       .populate('items.product', 'name price');
@@ -74,7 +74,7 @@ const getOrder = async (req, res) => {
 
     if (!order) return res.status(404).json({ error: 'Order not found' });
 
-    if (req.user.role !== 'admin' && req.user._id.toString() !== order.user.toString()) {
+    if (req.user.role !== 'admin' && req.user.id.toString() !== order.user.toString()) {
       return res.status(403).json({ error: 'Access denied' });
     }
 
