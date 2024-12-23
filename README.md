@@ -4,31 +4,66 @@ Full-stack microservices e-commerce application with React frontend and Node.js 
 
 ## Architecture
 
-### Services
-- Frontend (React) - Port 5173
-- Backend API - Port 5000 
-- Payment Service - Port 3001
-- Invoice Service - Port 3002
-- MongoDB - Port 27017
-- Kafka - Port 9092
-- Zookeeper - Port 2181
+```
+graph TD
+    A[Frontend] --> B[Backend API]
+    B --> C[MongoDB]
+    B --> D[Payment Service]
+    B --> E[Invoice Service]
+    D --> F[Kafka]
+    F --> E
+```
 
-## Setup
 
-### Prerequisites
-- Node.js 18+
-- MongoDB
-- Docker & Docker Compose 
+```
+ecommerce/
+├── frontend/
+├── backend/
+├── microservices/
+│   ├── payment-service/
+│   └── invoice-service/
+└── docker-compose.yml
+```
 
-### Installation Steps
+Docker file:
 
-```bash
-# Clone repository
-git clone https://github.com/yourusername/ecommerce.git
-cd ecommerce
-
-# Install dependencies
-cd backend && npm install
-cd ../frontend && npm install
-cd ../microservices/payment-service && npm install 
-cd ../invoice-service && npm install
+```
+version: '3'
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+      
+  payment:
+    build: ./microservices/payment-service
+    ports:
+      - "3001:3001"
+      
+  invoice:
+    build: ./microservices/invoice-service
+    ports:
+      - "3002:3002"
+      
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+      
+  mongodb:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+```
