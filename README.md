@@ -5,7 +5,6 @@ Full-stack microservices e-commerce application with React frontend and Node.js 
 ## Architecture
 
 ```
-graph TD
     A[Frontend] --> B[Backend API]
     B --> C[MongoDB]
     B --> D[Payment Service]
@@ -66,4 +65,48 @@ services:
     image: mongo:6
     ports:
       - "27017:27017"
+```
+
+Windows kurulumu için gereken komutlar:
+
+````
+# Create project structure
+mkdir ecommerce
+cd ecommerce
+mkdir frontend backend microservices
+cd microservices
+mkdir payment-service invoice-service
+cd ..
+
+# Install dependencies
+cd frontend
+npm install react vite @vitejs/plugin-react
+
+cd ../backend
+npm install express mongoose kafka-node
+
+cd ../microservices/payment-service
+npm install express kafkajs mongoose
+
+cd ../invoice-service
+npm install express kafkajs mongoose
+```
+
+Docker sistemi ayağa kaldırma
+```
+# Start all services
+docker-compose up -d
+
+# Start development servers
+cd frontend
+npm run dev
+
+cd ../backend
+npm run dev
+
+cd ../microservices/payment-service
+npm run dev
+
+cd ../invoice-service
+npm run dev
 ```
