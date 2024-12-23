@@ -7,7 +7,7 @@ const Singleproduct = ({ allProductsData, addToCart }) => {
   return (
     <>
       {allProductsData.map((product, index) => {
-        if (product.id == id.id) {
+        if (product._id == id.id) {
           return (
             <div key={index}>
               <section className="single-product">

@@ -1,1 +1,3 @@
 .VSCodeCounter
+microservices/invoice-service/node_modules
+microservices/payment-service/node_modules

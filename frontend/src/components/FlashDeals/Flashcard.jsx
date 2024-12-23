@@ -87,7 +87,7 @@ const Flashcard = ({ productItems, addToCart }) => {
                   </div>
                 </div>
                 <div className="product-details">
-                  <Link to={`/all-products/${product.id}`}>
+                  <Link to={`/all-products/${product._id}`}>
                     <h3 className="truncate">{product.name}</h3>
                   </Link>
                   <div className="rate">

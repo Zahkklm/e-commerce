@@ -1,41 +1,42 @@
 const mongoose = require('mongoose');
 
-const orderItemSchema = new mongoose.Schema({
-  product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
-  quantity: { type: Number, required: true },
-  price: { type: Number, required: true },
-  total: { type: Number, required: true },
-});
-
 const orderSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  items: [orderItemSchema],
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  items: [{
+    product: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Product',
+      required: true
+    },
+    quantity: {
+      type: Number,
+      required: true,
+      min: 1
+    }
+  }],
+  total: {
+    type: Number,
+    required: true
+  },
   status: {
     type: String,
-    enum: ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'],
-    default: 'Pending',
+    enum: ['pending', 'processing', 'shipped', 'delivered', 'cancelled'],
+    default: 'pending'
   },
-  paymentStatus: {
-    type: String,
-    enum: ['Pending', 'Paid', 'Failed', 'Refunded'],
-    default: 'Pending',
-  },
-  paymentMethod: { type: String, enum: ['CreditCard', 'PayPal', 'BankTransfer'], required: true },
-  totalAmount: { type: Number, required: true },
   shippingAddress: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Address',
-    required: true,
+    street: String,
+    city: String,
+    state: String,
+    zipCode: String
   },
-  billingAddress: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Address',
-    required: true,
-  },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-  cancelledAt: { type: Date },
-  deliveredAt: { type: Date },
-});
+  paymentMethod: {
+    type: String,
+    required: true
+  }
+}, { timestamps: true });
 
 module.exports = mongoose.model('Order', orderSchema);

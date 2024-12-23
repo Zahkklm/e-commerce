@@ -37,13 +37,15 @@ function App() {
       return;
     }
 
+    console.log("PRODUCT: " + product._id);
+
     try {
-      await productsAPI.addToCart(product.id);
-      const productExists = cartItems.find((item) => item.id === product.id);
+      await productsAPI.addToCart(product._id);
+      const productExists = cartItems.find((item) => item.id === product._id);
       
       if (productExists) {
         setCartItems(cartItems.map(item => 
-          item.id === product.id 
+          item.id === product._id 
             ? { ...item, qty: item.qty + 1 }
             : item
         ));
@@ -59,12 +61,12 @@ function App() {
 
   const deleteFromCart = async (product) => {
     try {
-      await productsAPI.removeFromCart(product.id);
+      await productsAPI.removeFromCart(product._id);
       const updatedCart = cartItems.map(item =>
-        item.id === product.id && item.qty > 1
+        item.id === product._id && item.qty > 1
           ? { ...item, qty: item.qty - 1 }
           : item
-      ).filter(item => !(item.id === product.id && item.qty === 1));
+      ).filter(item => !(item.id === product._id && item.qty === 1));
       
       setCartItems(updatedCart);
       toast.success("Item updated in cart");
@@ -86,11 +88,12 @@ function App() {
     }
 
     try {
+      console.log(cartItems);
       await productsAPI.checkout(cartItems);
       setCartItems([]);
       toast.success("Order placed successfully");
     } catch (error) {
-      toast.error("Checkout failed");
+      toast.error("Checkout failed" + error);
     }
   };
 

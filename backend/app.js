@@ -12,6 +12,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./config/swagger-output.json'); // Generated file
 const shipmentRoutes = require('./routes/shipmentRoutes');
 const returnRoutes = require('./routes/returnRoutes');
+const cartRoutes = require('./routes/cartRoutes');
 
 const cors = require('cors');
 const PORT = process.env.PORT || 5000;
@@ -47,6 +48,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/invoices', invoiceRoutes);
 app.use('/api/shipments', shipmentRoutes);
 app.use('/api/returns', returnRoutes);
+app.use('/api/cart', cartRoutes);
 
 // Handle React routing, return all requests to React app
 app.get('*', (req, res) => {
