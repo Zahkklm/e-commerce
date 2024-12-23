@@ -32,6 +32,7 @@ const productSchema = new mongoose.Schema({
   brand: { type: String },
   vendor: { type: String },
   vendorId: { type: String },
+  likes: { type: Number, default: 0 },
 });
 
 module.exports = mongoose.model('Product', productSchema);
