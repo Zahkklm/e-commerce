@@ -19,5 +19,5 @@ export const productsAPI = {
   clearCart: () => API.delete('/cart'),
   
   // Checkout endpoint
-  checkout: (cartData) => API.post('/cart/checkout', cartData)
+  checkout: (cartData) => API.post('http://localhost:3001/api/payment-service/process', cartData)
 };

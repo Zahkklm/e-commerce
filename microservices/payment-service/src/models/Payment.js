@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const paymentSchema = new mongoose.Schema({
-  orderId: { 
-    type: String, 
-    required: true 
-  },
   amount: { 
     type: Number, 
     required: true 
@@ -20,7 +16,8 @@ const paymentSchema = new mongoose.Schema({
   },
   paymentMethod: {
     type: String,
-    required: true
+    required: true,
+    default: 'credit_card'
   },
   createdAt: {
     type: Date,

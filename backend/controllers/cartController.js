@@ -121,54 +121,19 @@ const cartController = {
   },
 
   clearCart: async (req, res) => {
+    console.log('User from request:', req.user); // Debug user object
     try {
-      await Cart.findOneAndUpdate(
-        { user: req.user.id },
-        { $set: { items: [], total: 0 } }
-      );
+      // await Cart.findOneAndUpdate(
+      //   { user: req.user.id },
+      //   { $set: { items: [], total: 0 } }
+      // );
+      await Cart.findOneAndDelete({ user: req.user.id });
       res.json({ message: 'Cart cleared' });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
   },
 
-  checkout: async (req, res) => {
-    try {
-      const cart = await Cart.findOne({ user: req.user.id })
-        .populate('items.product');
-
-      if (!cart || cart.items.length === 0) {
-        return res.status(400).json({ error: 'Cart is empty' });
-      }
-
-      const totalAmount = cart.items.reduce((sum, item) => {
-        return sum + (item.quantity * item.product.price);
-      }, 0);
-
-      try {
-        const paymentResult = await paymentService.post('', {
-          userId: req.user.id,
-          amount: totalAmount,
-          paymentMethod: req.body.paymentMethod || 'debit/credit',
-          orderId: cart._id
-        });
-
-        // ...rest of the checkout code...
-      } catch (paymentError) {
-        console.error('Payment service error:', paymentError);
-        return res.status(503).json({
-          error: 'Payment service unavailable',
-          details: paymentError.message
-        });
-      }
-    } catch (error) {
-      console.error('Checkout Error:', error);
-      res.status(500).json({
-        error: 'Checkout failed',
-        details: error.message
-      });
-    }
-  }
 };
 
 module.exports = cartController;

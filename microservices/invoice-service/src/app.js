@@ -1,37 +1,25 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const routes = require('./routes/invoiceRouters');
 const { startConsumer } = require('./services/kafkaConsumer');
-const invoiceRoutes = require('./routes/invoiceRoutes');
 
 const app = express();
-app.use(express.json());
+const PORT = process.env.PORT || 3002;
 
-// MongoDB connection
-mongoose.connect("mongodb://localhost:27017/invoice-db")
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
+app.use(bodyParser.json());
+app.use('/api', routes);
 
-// Routes
-app.use('/api/invoices', invoiceRoutes);
-
-// Health check
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok' });
-});
+mongoose.connect('mongodb://127.0.0.1:27017/e-commerce-db', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('Connected to MongoDB'))
+.catch(err => console.error('MongoDB connection error:', err));
 
 // Start Kafka consumer
-startConsumer().catch(console.error);
+startConsumer().catch(err => console.error('Error starting Kafka consumer:', err));
 
-// Error handling
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ 
-    error: 'Something broke!',
-    details: err.message 
-  });
-});
-
-const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
   console.log(`Invoice service running on port ${PORT}`);
 });

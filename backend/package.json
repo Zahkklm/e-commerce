@@ -7,11 +7,14 @@
   "scripts": {
     "start": "node app.js",
     "build": "cd ../frontend && npm run build",
-    "deploy": "npm run build && npm start"
+    "deploy": "npm run build && npm start",
+    "dev": "nodemon index",
+    "swagger-autogen": "node ./config/swagger.js"
   },
   "author": "Özgür Peynirci",
   "license": "ISC",
   "dependencies": {
+    "axios": "1.7.9",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",

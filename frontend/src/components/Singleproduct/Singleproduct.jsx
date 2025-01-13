@@ -15,7 +15,7 @@ const Singleproduct = ({ allProductsData, addToCart }) => {
                 <div className="single-product-flex">
                   <div className="single-img">
                     <img src={product.image} alt="" />
-                    <div className="price">{product.price}.00$</div>
+                    <div className="price">{product.price}$</div>
                   </div>
                   <div className="description">
                     {product.desc}

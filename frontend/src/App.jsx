@@ -36,11 +36,10 @@ function App() {
       navigate("/login");
       return;
     }
-
-    console.log("PRODUCT: " + product._id);
+    console.log("PRODUCT: " + JSON.stringify(product));
 
     try {
-      await productsAPI.addToCart(product._id);
+      await productsAPI.addToCart(product._id);      
       const productExists = cartItems.find((item) => item.id === product._id);
       
       if (productExists) {

@@ -6,6 +6,7 @@ const authMiddleware  = require('./middleware/authMiddleware');
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const cartRoutes = require('./routes/cartRoutes');
 // const errorHandler = require('./middleware/errorMiddleware'); // Assuming an error handler middleware exists
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./config/swagger-output.json'); // Generated file
@@ -25,13 +26,11 @@ connectDB();
 
 const app = express();
 
+// Swagger documentation route
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 // CORS Configuration
-app.use(cors({
-  origin: 'http://localhost:5173', // Vite default port
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(cors());
 
 app.use(bodyParser.json());
 
@@ -45,6 +44,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/shipments', shipmentRoutes);
 app.use('/api/returns', returnRoutes);
+app.use('/api/cart', cartRoutes);
 
 // Handle React routing, return all requests to React app
 app.get('*', (req, res) => {
@@ -54,8 +54,7 @@ app.get('*', (req, res) => {
 // TODO: Add error handler middleware 
 // app.use(errorHandler); // Custom error handler to capture and format errors
 
-// Swagger documentation route
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 
 // Server listener
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

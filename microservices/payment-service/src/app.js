@@ -1,28 +1,21 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const { processPayment } = require('./controllers/paymentController');
 
 const app = express();
 app.use(express.json());
 
+// Enable CORS for all routes
+app.use(cors());
+
 // Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/payment-db")
+mongoose.connect("mongodb://127.0.0.1:27017/e-commerce-db")
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
 // Payment routes
-app.post('/api/payments/process', async (req, res) => {
-  try {
-    const result = await processPayment(req.body);
-    res.json(result);
-  } catch (error) {
-    console.error('Payment processing error:', error);
-    res.status(500).json({ 
-      status: 'failed',
-      error: error.message 
-    });
-  }
-});
+app.post('/api/payment-service/process', processPayment);
 
 // Health check route
 app.get('/health', (req, res) => {

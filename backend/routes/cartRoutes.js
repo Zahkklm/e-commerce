@@ -12,7 +12,4 @@ router.delete('/items/:productId', cartController.removeFromCart);
 router.patch('/items/:productId', cartController.updateQuantity);
 router.delete('/', cartController.clearCart);
 
-// Checkout operation
-router.post('/checkout', cartController.checkout);
-
 module.exports = router;

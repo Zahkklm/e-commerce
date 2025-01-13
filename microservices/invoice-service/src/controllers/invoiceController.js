@@ -1,20 +1,35 @@
 const Invoice = require('../models/Invoice');
 
-const createInvoice = async (paymentData) => {
+const createInvoice = async (req, res) => {
   try {
+    const { paymentId, orderId, amount, userId, status } = req.body;
+
     const invoice = new Invoice({
-      paymentId: paymentData.paymentId,
-      orderId: paymentData.orderId,
-      amount: paymentData.amount,
-      status: 'generated'
+      paymentId,
+      orderId,
+      amount,
+      userId,
+      status
     });
 
     await invoice.save();
-    console.log('Invoice created:', invoice._id);
-    return invoice;
+
+    if (res && res.json) {
+      res.json({
+        status: 'success',
+        message: 'Invoice created successfully',
+        invoice
+      });
+    }
   } catch (error) {
-    console.error('Error creating invoice:', error);
-    throw error;
+    if (res && res.status) {
+      res.status(500).json({
+        status: 'failed',
+        error: error.message
+      });
+    } else {
+      console.error('Error creating invoice:', error.message);
+    }
   }
 };
 

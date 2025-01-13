@@ -98,7 +98,7 @@ const Flashcard = ({ productItems, addToCart }) => {
                     <i className="fa fa-star"></i>
                   </div>
                   <div className="price">
-                    <h4>{product.price}.00</h4>
+                    <h4>{product.price}</h4>
                     <button
                       aria-label="Add to cart"
                       onClick={() => addToCart(product)}
